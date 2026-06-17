@@ -1,0 +1,14 @@
+# Ignore everything by default
+*
+
+# Do not ignore .gitignore itself
+!.gitignore
+
+# Do not ignore the readme file
+!README.md
+!readme.md
+!README.MD
+
+# Do not ignore the .github directory and all its recursive contents
+!.github/
+!.github/**
