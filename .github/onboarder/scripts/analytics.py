@@ -118,7 +118,13 @@ def parse_and_format_data(data, action):
 
 
 
-def generate_ascii_chart(records, max_width=40):
+def supports_color():
+    """Returns True if the running system supports ANSI color codes."""
+    if "NO_COLOR" in os.environ:
+        return False
+    return hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
+
+def generate_ascii_chart(records, max_width=40, supports_color=False):
     """Generates a clean text-based horizontal bar chart of the timeseries trends."""
     if not records:
         return "No data to plot."
@@ -128,12 +134,15 @@ def generate_ascii_chart(records, max_width=40):
         max_val = 1
         
     chart_lines = []
+    CYAN = "\033[96m" if supports_color else ""
+    RESET = "\033[0m" if supports_color else ""
+    
     for date_str, val in records:
         bar_len = int((val / max_val) * max_width)
         bar = "■" * bar_len
         # Format floating values nicely if they have decimals
         val_str = f"{int(val)}" if val.is_integer() else f"{val:.4f}"
-        chart_lines.append(f"{date_str} | {bar} ({val_str})")
+        chart_lines.append(f"{date_str} | {CYAN}{bar}{RESET} ({val_str})")
         
     return "\n".join(chart_lines)
 
@@ -226,22 +235,39 @@ def main():
     }
     m_name = metric_names.get(args.action, args.action)
 
-    print("=== PHAROS DAILY BLOCKCHAIN STATS REPORT ===")
+    # Set up styling constants
+    if supports_color():
+        CYAN = "\033[96m"
+        GREEN = "\033[92m"
+        YELLOW = "\033[93m"
+        RED = "\033[91m"
+        BOLD = "\033[1m"
+        RESET = "\033[0m"
+    else:
+        CYAN = GREEN = YELLOW = RED = BOLD = RESET = ""
+
+    header = "PHAROS DAILY BLOCKCHAIN STATS REPORT"
+    print(f"{CYAN}{BOLD}╔{'═' * 52}╗{RESET}")
+    print(f"{CYAN}{BOLD}║{header.center(52)}║{RESET}")
+    print(f"{CYAN}{BOLD}╚{'═' * 52}╝{RESET}")
+    
     if is_mock:
-        print("[⚠️ OFFLINE MODE: Using local mock data because SocialScan API returned an error]")
-    print(f"Network: {args.network}")
-    print(f"Metric:  {m_name}")
-    print(f"Query:   Last {len(records)} days ({start_str} to {end_str})")
-    print("-" * 50)
-    print(f"📊 Summary Analysis:")
-    print(f"  - Total {m_name}: {total_val:.4f}".replace(".0000", "") + block_str)
-    print(f"  - Daily Average: {avg_val:.4f}".replace(".0000", ""))
-    print(f"  - Minimum Value: {min_rec[1]:.4f} ({min_rec[0]})".replace(".0000", ""))
-    print(f"  - Maximum Value: {max_rec[1]:.4f} ({max_rec[0]})".replace(".0000", ""))
-    print("-" * 50)
-    print("📈 Timeseries Trend Chart:")
-    print(generate_ascii_chart(records))
-    print("=" * 50)
+        mock_msg = "[⚠️ OFFLINE MODE: Using local mock data due to API error]"
+        print(f"{YELLOW}{BOLD}{mock_msg.center(54)}{RESET}")
+        
+    print(f"{BOLD}Network:{RESET}  {GREEN}{args.network}{RESET}")
+    print(f"{BOLD}Metric:{RESET}   {GREEN}{m_name}{RESET}")
+    print(f"{BOLD}Query:{RESET}    Last {len(records)} days ({start_str} to {end_str})")
+    print(f"{CYAN}{'-' * 54}{RESET}")
+    print(f"📊 {BOLD}Summary Analysis:{RESET}")
+    print(f"  - Total {m_name}: {GREEN}{BOLD}{total_val:.4f}{RESET}".replace(".0000", "") + block_str)
+    print(f"  - Daily Average: {CYAN}{avg_val:.4f}{RESET}".replace(".0000", ""))
+    print(f"  - Minimum Value: {YELLOW}{min_rec[1]:.4f}{RESET} ({min_rec[0]})".replace(".0000", ""))
+    print(f"  - Maximum Value: {GREEN}{BOLD}{max_rec[1]:.4f}{RESET} ({max_rec[0]})".replace(".0000", ""))
+    print(f"{CYAN}{'-' * 54}{RESET}")
+    print(f"📈 {BOLD}Timeseries Trend Chart:{RESET}")
+    print(generate_ascii_chart(records, supports_color=supports_color()))
+    print(f"{CYAN}{'=' * 54}{RESET}")
 
 if __name__ == "__main__":
     main()

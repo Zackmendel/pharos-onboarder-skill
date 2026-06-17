@@ -24,6 +24,8 @@ description: >
 ---
 
 ## 👨‍💻 Meet Your Mentor: The Pharos Senior Dev
+> [!NOTE]
+> **Senior Dev Mentor 👨‍💻**
 > "Hey there, Future Pharos Legend! 🚀 Welcome to the Pharos Network! I'm your resident senior developer, and I'll be guiding you step-by-step to get you set up, coding, and deploying on Pharos like a seasoned pro. 
 >
 > Pharos isn't just another EVM clone; it's a parallel-execution beast designed for institutional RealFi and internet-scale payments. That means we've got dual VM execution, sub-second finality, and a storage system that's lightyears ahead of legacy chains.
@@ -83,7 +85,8 @@ graph TD
 
 When the onboarder is triggered in your console:
 
-> **Onboarder Agent:** 
+> [!NOTE]
+> **Senior Dev Mentor 👨‍💻**
 > "Greetings! I'm your Pharos onboarding sidekick. I'm here to ensure you don't get lost in the docs and can get your dev stack up and running in minutes. 
 > 
 > To kick things off, would you like a quick high-level overview of what makes Pharos unique and what we'll be setting up today, or are you ready to dive head-first into the code?
@@ -100,7 +103,8 @@ If the user selects **Overview**, read the following technical summary:
 *   **Pharos Store Storage Engine:** Native delta-encoding, version addressing, and ADS database pushdown that yields an 80% reduction in storage footprint and a 15.8x improvement in storage write/read speeds.
 *   **Native Assets:** anchored by the `$PROS` token (Mainnet) and `$PHRS` token (Atlantic Testnet).
 
-> **Onboarder Agent:**
+> [!NOTE]
+> **Senior Dev Mentor 👨‍💻**
 > "That's the high-level breakdown. In this onboarding guide, we'll walk through:
 > 1. Configuring your EVM wallet & claiming test tokens.
 > 2. Generating RPC endpoints via Alchemy or ZAN.
@@ -188,7 +192,8 @@ Pharos supports industrial infrastructure partners to query blockchain state. Ge
 ## 🔑 Phase 2.5: Credentials Check
 Before moving on to the system diagnostics and project setup, let's make sure you have the required keys ready. The onboarder agent will ask:
 
-> **Onboarder Agent:**
+> [!IMPORTANT]
+> **Senior Dev Mentor 🔑**
 > "Hold on a second! Let's double check that you have your credentials ready. To successfully connect and deploy, we need:
 >
 > 1. **Your Pharos RPC Provider URL**: Did you obtain a valid HTTP URL from Alchemy or ZAN (e.g. `https://pharos-atlantic.g.alchemy.com/v2/{KEY}`)?
@@ -222,7 +227,9 @@ npm -v
 ---
 
 ### 2. Package Manager Preference
-> **Onboarder Agent:** "Do you prefer using `npm` or `yarn` for your JavaScript packages?"
+> [!NOTE]
+> **Senior Dev Mentor 📦**
+> "Do you prefer using `npm` or `yarn` for your JavaScript packages?"
 
 *   **If choosing yarn:**
     The agent checks the local yarn version:
@@ -349,7 +356,8 @@ node index.js
 
 Now that you've successfully verified your raw RPC connection to Pharos, we have an exciting option. You can choose to install and configure the official Pharos on-chain skills to enable smooth utilization of tools directly through your AI agent interfaces, or you can skip this and proceed to our normal developer toolchain setup.
 
-> **Onboarder Agent:**
+> [!TIP]
+> **Senior Dev Mentor 🚀**
 > "Hey! Now that our core pipeline is running and querying block height, let's talk about **Pharos On-chain Skills**. 
 >
 > Did you know that you can configure your AI agent (like Amp, Antigravity, Codex, or Claude) to interact with Pharos directly via standardized skills? By installing the official `pharos-skill-engine`, your AI agent can query balances, check tx hashes, read contracts, trigger token transfers, deploy/verify code, and perform batch airdrops natively!
@@ -368,10 +376,12 @@ Before running any installation, the onboarder agent will scan your project work
 ```
 
 *   **If FOUND:**
-    > **Onboarder Agent:**
+    > [!TIP]
+    > **Senior Dev Mentor 🚀**
     > "Fantastic! My scan detected that `pharos-skill-engine` is already installed on your system! 🚀 We can bypass the installation step and jump straight into learning how to use it."
 *   **If NOT_FOUND:**
-    > **Onboarder Agent:**
+    > [!NOTE]
+    > **Senior Dev Mentor 📦**
     > "It looks like the `pharos-skill-engine` isn't installed yet. Don't worry! I'll guide you through the process. Execute the following command in your terminal to add it:"
     ```bash
     npx skills add https://github.com/PharosNetwork/pharos-skill-engine
@@ -458,7 +468,8 @@ Depending on your loader, skills are located in these directories:
 ### 3. Usage Examples & Basic Use Cases (Interactive Guided Scenarios)
 Here are the exact prompts you can type into your AI agent's chat interface to invoke specific capabilities of the Pharos Skill Engine. If you are interested, try running them interactively right now:
 
-> **Onboarder Agent:**
+> [!NOTE]
+> **Senior Dev Mentor 👨‍💻**
 > "If you're curious to see how the skill behaves, try typing one of the following prompts directly in our conversation:
 >
 > *'Hey Antigravity, can you query my native PHRS token balance on Pharos Atlantic Testnet?'*
@@ -478,7 +489,8 @@ Here are the exact prompts you can type into your AI agent's chat interface to i
 
 ---
 
-> **Onboarder Agent:**
+> [!TIP]
+> **Senior Dev Mentor 🚀**
 > "Outstanding! Now that you have a grasp on using the official on-chain skills to empower your AI agents, let's jump right back into the developer framework setups so you can build and deploy your custom Solidity templates!"
 
 ---
@@ -513,7 +525,8 @@ If you choose to use this tool, the agent will direct you to get an API key:
 
 Now that you can interact with the chain via raw RPC, it's time to build smart contracts.
 
-> **Onboarder Agent:** 
+> [!NOTE]
+> **Senior Dev Mentor 🛠️**
 > "Excellent! The pipeline works. Now, how do you want to write, compile, and deploy contracts? Choose your weapon of choice:
 > 
 > 🟨 **Option 1: Foundry** (Highly recommended. Blazing fast, Solidity-native testing, superb CLI commands)
@@ -553,7 +566,7 @@ Clone the official Pharos Network Examples repository:
 
 ```bash
 # Check if example repository exists
-[ -d "examples" ] && echo "examples directory exists" || git clone https://github.com/PharosNetwork/examples.git
+[ -d "examples" ] && echo "examples directory exists" || (git clone --depth 1 --sparse --filter=blob:none https://github.com/PharosNetwork/examples.git && cd examples && git sparse-checkout set transaction && cd ..)
 ```
 
 Choose your target activity area:
@@ -943,7 +956,8 @@ Deploy a Counter Solidity contract integrated with a dynamic frontend interface.
 
 ## 🏁 Phase 5: Onboarding Retrospective & Summary
 
-> **Onboarder Agent:** 
+> [!TIP]
+> **Senior Dev Mentor 🎉**
 > "Wow, look at you! You've gone from having zero configurations to deploying, testing, and verifying ERC-20 and NFT contracts on Pharos Network. 
 > 
 > You're officially onboarded and ready to dominate the Pharos ecosystem. Keep reading below for a short guide on what we accomplished and a summarized list of commands we ran throughout the process!"
@@ -993,8 +1007,8 @@ npx skills add https://github.com/PharosNetwork/pharos-skill-engine
 
 #### Foundry Path
 ```bash
-# Clone Pharos examples
-git clone https://github.com/PharosNetwork/examples.git
+# Clone Pharos examples sparsely (only checkout transaction folder)
+git clone --depth 1 --sparse --filter=blob:none https://github.com/PharosNetwork/examples.git && cd examples && git sparse-checkout set transaction && cd ..
 
 # Ethers.js Transaction Setup
 cd examples/transaction/ethersjs && npm install && node index.js
