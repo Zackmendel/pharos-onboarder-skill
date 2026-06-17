@@ -60,16 +60,13 @@ To install either skill to your project workspace or global AI agent directory (
 
 ### Option A: Install Interactive Onboarder
 ```bash
-npx skills add <your-github-repo-url>/.github/onboarder
+npx skills add https://github.com/Zackmendel/pharos-onboarder-skill/.github/onboarder
 ```
 
 ### Option B: Install Fast Onboarder
 ```bash
-npx skills add <your-github-repo-url>/.github/onboarder_fast
+npx skills add https://github.com/Zackmendel/pharos-onboarder-skill/.github/onboarder_fast
 ```
-
-*Replace `<your-github-repo-url>` with the URL of your published repository (e.g., `https://github.com/username/pharos`).*
-
 ---
 
 ## 📊 Daily Stats & Analytics (SocialScan API Integration)
